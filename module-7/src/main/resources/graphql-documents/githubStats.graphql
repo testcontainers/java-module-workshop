@@ -1,0 +1,15 @@
+query Stats($owner: String!, $name: String!) {
+    repository(owner: $owner, name: $name) {
+        issues(states: OPEN) {
+            totalCount
+        } pullRequests(states: OPEN) {
+            totalCount
+        } stargazers {
+            totalCount
+        } watchers {
+            totalCount
+        } forks {
+            totalCount
+        }
+    }
+}

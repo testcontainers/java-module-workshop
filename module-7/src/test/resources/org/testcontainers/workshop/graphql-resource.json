@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/graphql",
+    "headers": {
+      "Authorization": {
+        "contains": "Bearer"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\"query\":\"query Stats($owner: String!, $name: String!) {\\n    repository(owner: $owner, name: $name) {\\n        issues(states: OPEN) {\\n            totalCount\\n        } pullRequests(states: OPEN) {\\n            totalCount\\n        } stargazers {\\n            totalCount\\n        } watchers {\\n            totalCount\\n        } forks {\\n            totalCount\\n        }\\n    }\\n}\", \"operationName\": \"Stats\", \"variables\":{\"owner\":\"testcontainers\",\"name\":\"testcontainers-java\"}}"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "testcontainers-java.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

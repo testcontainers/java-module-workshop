@@ -1,0 +1,21 @@
+{
+    "data": {
+        "repository": {
+            "issues": {
+                "totalCount": 385
+            },
+            "pullRequests": {
+                "totalCount": 90
+            },
+            "stargazers": {
+                "totalCount": 6560
+            },
+            "watchers": {
+                "totalCount": 142
+            },
+            "forks": {
+                "totalCount": 1295
+            }
+        }
+    }
+}
