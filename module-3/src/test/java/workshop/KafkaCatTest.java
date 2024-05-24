@@ -1,4 +1,4 @@
-package org.testcontainers.workshop;
+package workshop;
 
 import org.junit.jupiter.api.Test;
 
