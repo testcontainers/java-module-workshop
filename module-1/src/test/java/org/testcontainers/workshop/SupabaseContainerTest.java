@@ -1,0 +1,4 @@
+package org.testcontainers.workshop;
+
+public class SupabaseContainerTest {
+}
