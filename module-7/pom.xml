@@ -9,11 +9,11 @@
         <version>3.3.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.testcontainers</groupId>
-    <artifactId>testcontainers-workshop</artifactId>
+    <groupId>org.testcontainer</groupId>
+    <artifactId>testcontainers-workshop-7</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>testcontainers-workshop</name>
-    <description>testcontainers-workshop</description>
+    <name>testcontainers-workshop-7</name>
+    <description>testcontainers-workshop-7</description>
     <properties>
         <java.version>17</java.version>
         <testcontainers.version>1.19.8</testcontainers.version>

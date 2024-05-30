@@ -7,7 +7,7 @@
     <artifactId>testcontainers-workshop-2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>testcontainers-workshop-2</name>
-    <description>testcontainers-workshop</description>
+    <description>testcontainers-workshop-2</description>
     <properties>
         <java.version>17</java.version>
         <testcontainers.version>1.19.8</testcontainers.version>
