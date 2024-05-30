@@ -41,6 +41,7 @@ class CloudflaredContainerTest {
                 cloudflare.start();
                 String url = cloudflare.getPublicUrl();
                 assertThat(url).as("Public url contains 'cloudflare'").contains("cloudflare");
+                System.setProperty("networkaddress.cache.ttl", "0");
 
                 Awaitility.await().pollDelay(10, TimeUnit.SECONDS).atMost(30, TimeUnit.SECONDS).ignoreExceptions().untilAsserted(()-> {
                     String body = RestAssured.given().baseUri(url)
