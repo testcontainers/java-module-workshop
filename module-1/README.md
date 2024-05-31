@@ -6,7 +6,7 @@
 docker run -e POSTGRES_PASSWORD=p@$$w0rd supabase/postgres::15.1.1.55
 ```
 
-2. Let's looks at the container logs and see a pattern to define the ready state. Log `database system is ready to accept connections`.
+2. Let's look at the container logs and see a pattern to define the ready state. Log `database system is ready to accept connections`.
 
 > [!NOTE]  
 > Supabase is a PostgreSQL based-image.
@@ -14,9 +14,9 @@ docker run -e POSTGRES_PASSWORD=p@$$w0rd supabase/postgres::15.1.1.55
 3. Few things to consider when building this module
 
 * The user must define the image
-* SupabaseContainer must work with `supabase/postgres` image
+* `SupabaseContainer` must work with `supabase/postgres` image
 * Runs using port 5432
-* As mentioned in the previous step, ready state is defined when the logs appear 2 times.
+* As identified in the previous step, ready state is defined when the string appears two times.
 * Requires `POSTGRES_PASSWORD` env var
 
 4. Let's open `SupabaseContainer` class and extend from `GenericContainer`
@@ -29,7 +29,7 @@ public class SupabaseContainer extends GenericContainer<SupabaseContainer> {
 }
 ```
 
-5. Let's apply topics in item 3
+5. Let's apply definitions from item three
 
 ```java
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -40,7 +40,7 @@ public SupabaseContainer(DockerImageName dockerImageName) {
     dockerImageName.assertCompatibleWith(DockerImageName.parse("supabase/postgres"));
     withExposedPorts(5432);
     withEnv("POSTGRES_PASSWORD", "p@$$w0rd");
-    waitingFor(Wait.forLogMessage("database system is ready to accept connections", 2));
+    waitingFor(Wait.forLogMessage(".*database system is ready to accept connections.*\\s", 2));
 }
 ```
 
