@@ -3,7 +3,7 @@
 1. Run the command below 
 
 ```bash
-docker run -e POSTGRES_PASSWORD=p@$$w0rd supabase/postgres::15.1.1.55
+docker run -e POSTGRES_PASSWORD=p@$$w0rd supabase/postgres:15.1.1.55
 ```
 
 2. Let's look at the container logs and see a pattern to define the ready state. Log `database system is ready to accept connections`.
@@ -82,13 +82,7 @@ void test() throws SQLException {
 8. Now, let's customize the database and password.
 
 ```java
-private String database;
-private String password;
-
-public SupabaseContainer withDatabase(String database) {
-    this.database = database;
-    return this;
-}
+private String password = "p@$$word";
 
 public SupabaseContainer withPassword(String password) {
     this.password = password;
@@ -96,13 +90,9 @@ public SupabaseContainer withPassword(String password) {
 }
 ```
 
-9. Update and read the `database` and `password` fields
+9. Update and read the `password` field
 
 ```java
-public String getJdbcUrl() {
-    return "jdbc:postgresql://" + getHost() + ":" + getMappedPort(5432) + "/" + this.database;
-}
-
 public String getPassword() {
     return this.password;
 }
@@ -114,7 +104,6 @@ public String getPassword() {
 @Test
 void test2() throws SQLException {
     try (SupabaseContainer supabase = new SupabaseContainer(DockerImageName.parse("supabase/postgres:15.1.1.55"))
-            .withDatabase("test")
             .withPassword("testpassword")) {
         supabase.start();
         Connection connection = DriverManager.getConnection(supabase.getJdbcUrl(), supabase.getUsername(), supabase.getPassword());
