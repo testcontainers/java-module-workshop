@@ -10,6 +10,23 @@ import java.io.IOException;
 
 public class MongoDBContainer extends GenericContainer<MongoDBContainer> {
 
+
+    private static class MongoDBContainerDef extends ContainerDef {
+
+        private static final int MONGODB_INTERNAL_PORT = 27017;
+
+        MongoDBContainerDef() {
+            addExposedTcpPort(MONGODB_INTERNAL_PORT);
+            setCommand("--replSet", "docker-rs");
+            setWaitStrategy(Wait.forLogMessage("(?i).*waiting for connections.*", 1));
+        }
+
+        void withSharding() {
+        }
+    }
+
+
+
     private static final DockerImageName DEFAULT_IMAGE_NAME = DockerImageName.parse("mongo");
     private static final String DEFAULT_TAG = "7.0.9";
 
@@ -17,10 +34,6 @@ public class MongoDBContainer extends GenericContainer<MongoDBContainer> {
     private static final int AWAIT_INIT_REPLICA_SET_ATTEMPTS = 60;
 
     private static final String MONGODB_DATABASE_NAME_DEFAULT = "test";
-
-    private static final String STARTER_SCRIPT = "/testcontainers_start.sh";
-
-    private boolean shardingEnabled;
 
     public MongoDBContainer(@NonNull final String dockerImageName) {
         this(DockerImageName.parse(dockerImageName));
@@ -41,34 +54,15 @@ public class MongoDBContainer extends GenericContainer<MongoDBContainer> {
         return (MongoDBContainerDef) super.getContainerDef();
     }
 
-    @Override
-    protected void containerIsStarting(InspectContainerResponse containerInfo) {
-        if (this.shardingEnabled) {
-            copyFileToContainer(MountableFile.forClasspathResource("/sharding.sh", 0777), STARTER_SCRIPT);
-        }
-    }
-
-    /**
-     * Enables sharding on the cluster
-     *
-     * @return this
-     */
-    public MongoDBContainer withSharding() {
-        this.shardingEnabled = true;
-        getContainerDef().withSharding();
-        return this;
-    }
 
     @Override
     protected void containerIsStarted(InspectContainerResponse containerInfo, boolean reused) {
-        if (!this.shardingEnabled) {
-            try {
-                initReplicaSet(reused);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            initReplicaSet(reused);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -171,20 +165,5 @@ public class MongoDBContainer extends GenericContainer<MongoDBContainer> {
         return execCheckRsInit.getExitCode() == CONTAINER_EXIT_CODE_OK;
     }
 
-    private static class MongoDBContainerDef extends ContainerDef {
 
-        private static final int MONGODB_INTERNAL_PORT = 27017;
-
-        MongoDBContainerDef() {
-            addExposedTcpPort(MONGODB_INTERNAL_PORT);
-            setCommand("--replSet", "docker-rs");
-            setWaitStrategy(Wait.forLogMessage("(?i).*waiting for connections.*", 1));
-        }
-
-        void withSharding() {
-            setCommand("-c", "while [ ! -f " + STARTER_SCRIPT + " ]; do sleep 0.1; done; " + STARTER_SCRIPT);
-            setWaitStrategy(Wait.forLogMessage("(?i).*mongos ready.*", 1));
-            setEntrypoint("sh");
-        }
-    }
 }
