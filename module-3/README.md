@@ -1,6 +1,6 @@
 # Networking
 
-Now, we are going to connect both containers. Let's user Kafka as a broker and then produce and consume
+Now, we are going to connect two containers. Let's use Kafka as a broker and then produce and consume
 messages from it.
 
 1. Annotate `KafkaCatTest` with `@Testcontainers`
