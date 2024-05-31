@@ -19,7 +19,7 @@ client
 
 ```java
 @Container
-KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.0.1"))
+KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.6.1"))
     .withListener(() -> "kafka:19092")
     .withNetwork(network);
 ```
