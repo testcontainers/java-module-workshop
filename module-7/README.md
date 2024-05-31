@@ -3,6 +3,8 @@
 In Spring Boot 3.1, the notion of `ConnectionDetails` and `ServiceConnection` were introduced.
 WireMock is not supported by Spring Boot but we can build our own implementation.
 
+1. Run `./mvnw compile`
+
 1. Run `TestcontainersWiremockExampleApplicationTests`
 
 2. Create `WireMockContainerConnectionDetailsFactory`
@@ -70,7 +72,7 @@ No ConnectionDetails found for source '@ServiceConnection source for Testcontain
 
 ```
 org.springframework.boot.autoconfigure.service.connection.ConnectionDetailsFactory=\
-com.example.testcontainerswiremockexample.WireMockContainerConnectionDetailsFactory
+org.testcontainers.workshop.WireMockContainerConnectionDetailsFactory
 ```
 
 6. Run `TestcontainersWiremockExampleApplicationTests` successfully

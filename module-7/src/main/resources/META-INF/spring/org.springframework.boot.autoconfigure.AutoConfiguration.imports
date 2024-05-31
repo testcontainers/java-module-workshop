@@ -1,1 +1,1 @@
-com.example.testcontainerswiremockexample.GHAutoConfiguration
+org.testcontainers.workshop.GHAutoConfiguration
