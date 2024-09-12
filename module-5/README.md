@@ -110,6 +110,12 @@ void contextLoads() {
 @BeforeEach
 public void reset() {
     pg.reset();
+    // Resetting the database terminates the connections, so we need to soft-evict those in the connection pool as well.
+    // Otherwise, tests would fail with postgres error 'FATAL: terminating connection due to administrator command'.
+    DataSource dataSource = jdbcTemplate.getDataSource();
+    if (dataSource instanceof HikariDataSource hikariDataSource) {
+        hikariDataSource.getHikariPoolMXBean().softEvictConnections();
+    }
 }
 ```
 
