@@ -1,5 +1,8 @@
 # Spring Boot Service Connections
 
+> [!NOTE]
+> There is a [blog-post](https://www.docker.com/blog/building-spring-boots-serviceconnection-for-testcontainers-wiremock/) with more details
+
 In Spring Boot 3.1, the notion of `ConnectionDetails` and `ServiceConnection` were introduced.
 WireMock is not supported by Spring Boot but we can build our own implementation.
 
