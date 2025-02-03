@@ -1,4 +1,4 @@
-package org.testcontainers.workshop;
+package org.testcontainers.containers;
 
 public class SupabaseContainer {
 }
