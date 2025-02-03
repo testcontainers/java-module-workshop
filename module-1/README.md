@@ -39,7 +39,7 @@ public SupabaseContainer(DockerImageName dockerImageName) {
     super(dockerImageName);
     dockerImageName.assertCompatibleWith(DockerImageName.parse("supabase/postgres"));
     withExposedPorts(5432);
-    withEnv("POSTGRES_PASSWORD", "p@$$w0rd");
+    withEnv("POSTGRES_PASSWORD", "password");
     waitingFor(Wait.forLogMessage(".*database system is ready to accept connections.*\\s", 2));
 }
 ```
@@ -56,7 +56,7 @@ public String getUsername() {
 }
 
 public String getPassword() {
-    return "p@$$w0rd";
+    return "password";
 }
 ```
 
